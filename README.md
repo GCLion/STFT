@@ -1,5 +1,7 @@
 ## Spatial-Temporal Forgery Trace based Forgery Image Identification
 
+![STFT Framework](pics/img1.png)
+
 As illustrated in the figure, STFT utilizes the diffusion process to map the image into the latent distribution space and extracts forgery traces from this latent distribution through comprehensive spatial-temporal analysis. The overall framework consists of the following three main modules:
 
 - **Temporal Prior Correlation Modeling**: Analyzes the latent space representations at different time steps of the diffusion process to capture their temporal variation characteristics.
