@@ -12,14 +12,15 @@ As illustrated in the figure, STFT utilizes the diffusion process to map the ima
 
 1. Install Python 3.8, PyTorch >= 2.4
 
-2. Porcess data.  Run the file `processData.py`to extract latent space data from the diffusion steps and process it into `test_all.csv`. Then, move the csv file to `./dataset/[data name]/`.
+2. Porcess data.  Run the file `processData.py` to extract latent space data from the diffusion steps and process it into `test_all.csv`. Then, move the csv file to `./dataset/[dataset name]/`.
 
 3. Train and evaluate. You can reproduce the experiment results as follows:
 
    ```bash
-   bash ./scripts/[data name].sh
+   python main.py --mode train --data_path dataset/[dataset name]
+   python main.py --mode test --data_path dataset/[dataset name]
    ```
-
+   
 
 ## Main Result
 
