@@ -20,7 +20,6 @@ As illustrated in the figure, STFT utilizes the diffusion process to map the ima
    bash ./scripts/[data name].sh
    ```
 
-   Especially, we use the adjustment operation proposed by Xu et al, 2018 for model evaluation. 
 
 ## Main Result
 
