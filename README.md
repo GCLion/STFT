@@ -1,4 +1,4 @@
-## Spatial-Temporal Forgery Trace based Forgery Image Identification
+# Spatial-Temporal Forgery Trace based Forgery Image Identification
 
 As illustrated in the figure, STFT utilizes the diffusion process to map the image into the latent distribution space and extracts forgery traces from this latent distribution through comprehensive spatial-temporal analysis. The overall framework consists of the following three main modules:
 
@@ -6,9 +6,30 @@ As illustrated in the figure, STFT utilizes the diffusion process to map the ima
 - **Spatial Correlation Modeling**: Extracts features from different latent dimensions and computes spatial correlations using a self-attention mechanism to model spatial dependencies.
 - **Frequency-Enhanced Attention Mechanism**: Leverages frequency domain information to guide temporal prior correlation computation and spatial correlation analysis, thereby accelerating forgery trace localization and improving model generalization by disregarding the interference of irrelevant features.
 
-![STFT Framework](pics/img1.png)
+<img src="pics/img1.png" alt="STFT Framework" style="zoom:80%;" />
 
+## Get Started
 
+1. Install Python 3.8, PyTorch >= 2.4
 
+2. Porcess data.  Run the file `processData.py`to extract latent space data from the diffusion steps and process it into `test_all.csv`. Then, move the csv file to `./dataset/[data name]/`.
 
+3. Train and evaluate. You can reproduce the experiment results as follows:
 
+   ```bash
+   bash ./scripts/[data name].sh
+   ```
+
+   Especially, we use the adjustment operation proposed by Xu et al, 2018 for model evaluation. 
+
+## Main Result
+
+We follow the established comparison standards to evaluate model performance on the GenImage and DeepFaceGen datasets, using accuracy (ACC) and area under the curve (AUC) as evaluation metrics, respectively. 
+
+Accuracy (ACC, %) comparison of our STFT method and other forgery detection models across various image generators. All methods were trained on GenImage/SDv1.4 and evaluated on different test subsets: 
+
+<img src="pics/genimg.png" alt="GenImage result" style="zoom:80%;" />
+
+Performance Comparison (AUC, %) of STFT and other methods across various forgery generators on DeepFaceGen: 
+
+<img src="pics/deepface.png"  alt="DeepFaceGen result" style="zoom:80%;"/>
