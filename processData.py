@@ -19,11 +19,11 @@ def avg_flatten(z_t):
     return z_t_flattened
 
 def processImg(image_path, model):
-    batch_size = 20
+    batch_size = 1
     # channels = 3
     # image_size = 64
     ddim_steps = 20
-    ddim_eta = 1.0
+    ddim_eta = 0.5
 
     image = Image.open(image_path).convert("RGB")
     # 预处理
@@ -35,6 +35,7 @@ def processImg(image_path, model):
     image_tensor = transform(image).unsqueeze(0).to("cuda")
     samples, intermediates = model.sample_log(cond=image_tensor, batch_size=batch_size, ddim=True, 
                         ddim_steps=ddim_steps, ddim_eta=ddim_eta)
+    intermediates = intermediates['x_inter']
     z_t_list = [avg_flatten(z_t) for _, z_t in enumerate(samples)]
     Z = torch.stack(z_t_list, dim=0)
     print(Z.shape)
