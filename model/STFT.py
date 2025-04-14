@@ -56,7 +56,7 @@ class Encoder(nn.Module):
 
 
 class STFT(nn.Module):
-    def __init__(self, win_size, enc_in, c_out, d_model=512, n_heads=8, e_layers=3, d_ff=512,
+    def __init__(self, win_size, enc_in, c_out, d_model=512, n_heads=8, e_layers=5, d_ff=512,
                  dropout=0.0, activation='gelu', output_attention=True):
         super(STFT, self).__init__()
         self.output_attention = output_attention
@@ -79,39 +79,19 @@ class STFT(nn.Module):
             ],
             norm_layer=torch.nn.LayerNorm(d_model)
         )
-
-        self.projection = nn.Linear(d_model, c_out, bias=True)
-        self.query_projection_space = nn.Linear(win_size, win_size)
-        self.key_projection_space = nn.Linear(win_size, win_size)
-        self.value_projection_space = nn.Linear(win_size, win_size)
-
-        self.fc1 = nn.Linear(enc_in, enc_in)
-        self.fc2 = nn.Linear(enc_in, 1)  # 二分类，输出1个值
-        self.dropout = nn.Dropout(0.1)
+        
+        self.fc = nn.Sequential(
+            nn.ReLU(),
+            nn.Linear(in_features=d_model, out_features=d_model // 2), # d_model
+            nn.ReLU(),
+            nn.Linear(d_model // 2, 1))
 
     def forward(self, x):
         enc_out = self.embedding(x)
         enc_out, series, prior, sigmas = self.encoder(enc_out)
-        enc_out = self.projection(enc_out)
-
-        x = x.permute(0, 2, 1)
-        B, W, L = x.shape
-        query_space = self.query_projection_space(x)#.view(B, L, H, -1)
-        key_space = self.key_projection_space(x)#.view(B, S, H, -1)
-        # values_space = self.value_projection_space(x)#.view(B, L, H)
-
-        scale_space = 1. / sqrt(L)
-        scores_space = torch.einsum("bwl,bwm->bwlm", query_space, key_space)
-        attn_space = scale_space * scores_space
-        space = self.dropout(torch.softmax(attn_space, dim=-1))
-        space = space.mean(dim=(-1, -2))
-
-        # print(len(series))
-        # print(series[0].shape)
-        x = F.relu(self.fc1(space))
-        x = self.dropout(x)
-        clas = torch.sigmoid(self.fc2(x))  # 二分类
-
+        clas = self.fc(enc_out)
+        clas = clas.squeeze(2)
+        
         if self.output_attention:
             return enc_out, series, prior, sigmas, clas
         else:
