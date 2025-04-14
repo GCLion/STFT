@@ -12,7 +12,7 @@ As illustrated in the figure, STFT utilizes the diffusion process to map the ima
 
 1. Install Python 3.8, PyTorch >= 2.4.
 
-2. Porcess data to extract latent space data from the diffusion steps and process it into `test_all.csv`. Then, move the csv file to `./dataset/[dataset name]/`. The LDM pre-trained weight file we use is `configs/latent-diffusion/celebahq-ldm-vq-4.yaml`.
+2. Click the Google Drive link to obtain the preprocessed data, and move the data to `./dataset/[dataset name]/`. 
 
 3. Train and evaluate. You can reproduce the experiment results as follows:
 

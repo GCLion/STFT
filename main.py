@@ -36,8 +36,8 @@ if __name__ == '__main__':
     parser.add_argument('--lr', type=float, default=1e-4) 
     parser.add_argument('--num_epochs', type=int, default=120) 
     parser.add_argument('--k', type=int, default=1) 
-    parser.add_argument('--data_path', type=str, default='./dataset/MJ/train_stable_diffusion_v_1_4.csv') 
-    parser.add_argument('--data_path_', type=str, default='./dataset/MJ/test_all_ADM_20t_20seg.csv') 
+    parser.add_argument('--data_path', type=str, default='./dataset/stable_diffusion_v_1_4_train.csv') 
+    parser.add_argument('--data_path_', type=str, default='./dataset/stable_diffusion_v_1_4_test.csv') 
     parser.add_argument('--win_size', type=int, default=19)
     parser.add_argument('--input_c', type=int, default=20)#192 3*256=768
     parser.add_argument('--output_c', type=int, default=20)
