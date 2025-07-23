@@ -12,9 +12,7 @@ As illustrated in the figure, STFT utilizes the diffusion process to map the ima
 
 1. Install Python 3.8, PyTorch >= 2.4.
 
-2. Click the [Baidu Cloud Drive link](https://pan.baidu.com/s/1koJV3RoTnPl_ngH9Cg7wZg?pwd=uq13) to obtain the data, and move the data to `./dataset/`. **All the datasets are well pre-processed**. 
-
-3. Train and evaluate. You can reproduce the experiment results as follows:
+2. Train and evaluate. You can reproduce the experiment results as follows:
 
    ```bash
    python main.py --mode train --data_path dataset/[data file name]
